@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AECODE Sales OS</title>
+    <meta
+      name="description"
+      content="Dashboard ejecutivo sanitizado de ventas AECODE desde BBDD Ventas General."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacion principal">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <strong>AECODE</strong>
+            <span>Sales OS</span>
+          </div>
+        </div>
+        <nav>
+          <a href="#resumen" class="active">Resumen</a>
+          <a href="#programas">Programas</a>
+          <a href="#canales">Canales</a>
+          <a href="#riesgos">Riesgos</a>
+        </nav>
+        <div class="source-box">
+          <span>Fuente</span>
+          <strong>BBDD Ventas General</strong>
+          <small id="sourceMeta">Cargando datos...</small>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Dashboard comercial sanitizado</p>
+            <h1>AECODE Sales OS</h1>
+            <p class="subtitle">
+              Ventas, cobranza, programas, canales y calidad de registro sin exponer datos personales.
+            </p>
+          </div>
+          <div class="toolbar">
+            <button id="resetFilters" type="button" title="Limpiar filtros">Limpiar</button>
+            <button id="exportView" type="button" title="Exportar vista actual">Exportar</button>
+          </div>
+        </header>
+
+        <section class="filters" aria-label="Filtros">
+          <label>
+            Moneda
+            <select id="currencyFilter">
+              <option value="ALL">Todas</option>
+              <option value="PEN">PEN</option>
+              <option value="USD">USD</option>
+            </select>
+          </label>
+          <label>
+            Programa
+            <select id="programFilter">
+              <option value="ALL">Todos</option>
+            </select>
+          </label>
+          <label>
+            Canal
+            <select id="channelFilter">
+              <option value="ALL">Todos</option>
+            </select>
+          </label>
+          <label>
+            Estado
+            <select id="statusFilter">
+              <option value="ALL">Todos</option>
+              <option value="PAGADO">Pagado</option>
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="ANULADO">Anulado</option>
+              <option value="RETIRADO">Retirado</option>
+            </select>
+          </label>
+        </section>
+
+        <section id="resumen" class="kpi-grid" aria-label="Resumen ejecutivo">
+          <article class="kpi primary">
+            <span>Ventas cobradas</span>
+            <strong id="paidRevenue">-</strong>
+            <small id="paidRevenueDetail">-</small>
+          </article>
+          <article class="kpi">
+            <span>Transacciones pagadas</span>
+            <strong id="paidTransactions">-</strong>
+            <small id="activeTransactions">-</small>
+          </article>
+          <article class="kpi warning">
+            <span>Pendiente por cobrar</span>
+            <strong id="pendingRevenue">-</strong>
+            <small id="pendingTransactions">-</small>
+          </article>
+          <article class="kpi">
+            <span>Ticket promedio</span>
+            <strong id="avgTicket">-</strong>
+            <small id="repeatContacts">-</small>
+          </article>
+        </section>
+
+        <section class="decision-band">
+          <article>
+            <span>Lectura ejecutiva</span>
+            <p id="executiveReadout">Cargando lectura...</p>
+          </article>
+          <article>
+            <span>Siguiente accion</span>
+            <p id="nextAction">Cargando accion...</p>
+          </article>
+        </section>
+
+        <section class="grid two">
+          <article class="panel wide">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Tendencia</p>
+                <h2>Ventas mensuales</h2>
+              </div>
+              <span id="monthRange" class="pill">-</span>
+            </div>
+            <div id="monthlyChart" class="monthly-chart" role="img" aria-label="Grafico mensual de ventas"></div>
+          </article>
+
+          <article id="riesgos" class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Control</p>
+                <h2>Riesgos ocultos</h2>
+              </div>
+            </div>
+            <div id="riskList" class="risk-list"></div>
+          </article>
+        </section>
+
+        <section id="programas" class="grid two">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Producto</p>
+                <h2>Programas que venden</h2>
+              </div>
+            </div>
+            <div id="programBars" class="bar-list"></div>
+          </article>
+
+          <article id="canales" class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Go-to-market</p>
+                <h2>Canales de pago</h2>
+              </div>
+            </div>
+            <div id="channelBars" class="bar-list compact"></div>
+          </article>
+        </section>
+
+        <section class="grid two">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Mix</p>
+                <h2>Tipo de oferta</h2>
+              </div>
+            </div>
+            <div id="typeBars" class="bar-list compact"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Operacion</p>
+                <h2>Estados de pago</h2>
+              </div>
+            </div>
+            <div id="statusDonut" class="status-grid"></div>
+          </article>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Detalle anonimo</p>
+              <h2>Vista operativa filtrada</h2>
+            </div>
+            <span id="visibleRows" class="pill">-</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mes</th>
+                  <th>Programa</th>
+                  <th>Tipo</th>
+                  <th>Canal</th>
+                  <th>Estado</th>
+                  <th>Moneda</th>
+                  <th class="num">Inversion</th>
+                </tr>
+              </thead>
+              <tbody id="recordsTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
