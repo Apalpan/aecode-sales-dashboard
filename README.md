@@ -1,14 +1,22 @@
-# AECODE Sales Dashboard
+# AECODE Revenue & Enrollment OS
 
-Dashboard ejecutivo de ventas generado desde la pestaña `BBDD Ventas General`.
+Dashboard ejecutivo avanzado generado desde la pestana `BBDD Ventas General`.
 
 ## Estado
 
-V1 estatica, sanitizada y lista para GitHub Pages.
+V2 estatica, sanitizada y lista para GitHub Pages.
+
+## Capas del dashboard
+
+- Ventas cobradas y pendientes.
+- Usuarios anonimos e inscritos activos.
+- Productos, lineas y cursos.
+- Medios de pago y condiciones comerciales.
+- Riesgos de cobranza, datos y trazabilidad.
 
 ## Ejecutar localmente
 
-Abrir `index.html` en el navegador.
+Abrir `index.html` en el navegador o servir la carpeta con un servidor estatico.
 
 ## Actualizar datos
 
@@ -18,5 +26,4 @@ Abrir `index.html` en el navegador.
 
 ## Privacidad
 
-El dashboard no incluye nombres, correos, telefonos, contactos ni links de comprobantes.
-
+El dashboard no incluye nombres, correos, telefonos, contactos ni links de comprobantes. Los usuarios se cuentan mediante identificadores anonimos generados localmente.

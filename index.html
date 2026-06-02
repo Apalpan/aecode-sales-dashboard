@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AECODE Sales OS</title>
+    <title>AECODE Revenue & Enrollment OS</title>
     <meta
       name="description"
-      content="Dashboard ejecutivo sanitizado de ventas AECODE desde BBDD Ventas General."
+      content="Dashboard avanzado AECODE para ventas, usuarios, productos, medios de pago y riesgos."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -17,29 +17,32 @@
           <div class="brand-mark">A</div>
           <div>
             <strong>AECODE</strong>
-            <span>Sales OS</span>
+            <span>Revenue OS</span>
           </div>
         </div>
+
         <nav>
-          <a href="#resumen" class="active">Resumen</a>
-          <a href="#programas">Programas</a>
-          <a href="#canales">Canales</a>
+          <a href="#ventas" class="active">Ventas</a>
+          <a href="#usuarios">Usuarios</a>
+          <a href="#productos">Productos</a>
+          <a href="#pagos">Pagos</a>
           <a href="#riesgos">Riesgos</a>
         </nav>
+
         <div class="source-box">
-          <span>Fuente</span>
+          <span>Fuente sanitizada</span>
           <strong>BBDD Ventas General</strong>
           <small id="sourceMeta">Cargando datos...</small>
         </div>
       </aside>
 
       <main>
-        <header class="topbar">
+        <header class="hero">
           <div>
-            <p class="eyebrow">Dashboard comercial sanitizado</p>
-            <h1>AECODE Sales OS</h1>
+            <p class="eyebrow">AECODE Commercial Intelligence</p>
+            <h1>Revenue & Enrollment OS</h1>
             <p class="subtitle">
-              Ventas, cobranza, programas, canales y calidad de registro sin exponer datos personales.
+              Ventas, inscritos, cursos, medios de pago y riesgos operativos desde una sola vista ejecutiva.
             </p>
           </div>
           <div class="toolbar">
@@ -48,7 +51,13 @@
           </div>
         </header>
 
-        <section class="filters" aria-label="Filtros">
+        <section class="filters" aria-label="Filtros del dashboard">
+          <label>
+            Mes
+            <select id="monthFilter">
+              <option value="ALL">Todos</option>
+            </select>
+          </label>
           <label>
             Moneda
             <select id="currencyFilter">
@@ -58,15 +67,33 @@
             </select>
           </label>
           <label>
-            Programa
+            Linea
+            <select id="productLineFilter">
+              <option value="ALL">Todas</option>
+            </select>
+          </label>
+          <label>
+            Curso
             <select id="programFilter">
               <option value="ALL">Todos</option>
             </select>
           </label>
           <label>
-            Canal
+            Tipo
+            <select id="typeFilter">
+              <option value="ALL">Todos</option>
+            </select>
+          </label>
+          <label>
+            Medio de pago
             <select id="channelFilter">
               <option value="ALL">Todos</option>
+            </select>
+          </label>
+          <label>
+            Condicion
+            <select id="paymentTypeFilter">
+              <option value="ALL">Todas</option>
             </select>
           </label>
           <label>
@@ -81,104 +108,157 @@
           </label>
         </section>
 
-        <section id="resumen" class="kpi-grid" aria-label="Resumen ejecutivo">
-          <article class="kpi primary">
+        <section id="ventas" class="scoreboard" aria-label="Resumen ejecutivo">
+          <article class="score-card primary">
             <span>Ventas cobradas</span>
             <strong id="paidRevenue">-</strong>
             <small id="paidRevenueDetail">-</small>
           </article>
-          <article class="kpi">
-            <span>Transacciones pagadas</span>
-            <strong id="paidTransactions">-</strong>
-            <small id="activeTransactions">-</small>
+          <article class="score-card">
+            <span>Inscritos activos</span>
+            <strong id="activeEnrollments">-</strong>
+            <small id="activeEnrollmentDetail">-</small>
           </article>
-          <article class="kpi warning">
+          <article class="score-card">
+            <span>Usuarios anonimos</span>
+            <strong id="activeUsers">-</strong>
+            <small id="userDetail">-</small>
+          </article>
+          <article class="score-card">
+            <span>Cursos activos</span>
+            <strong id="activeCourses">-</strong>
+            <small id="courseDetail">-</small>
+          </article>
+          <article class="score-card warning">
             <span>Pendiente por cobrar</span>
             <strong id="pendingRevenue">-</strong>
             <small id="pendingTransactions">-</small>
           </article>
-          <article class="kpi">
-            <span>Ticket promedio</span>
-            <strong id="avgTicket">-</strong>
-            <small id="repeatContacts">-</small>
-          </article>
         </section>
 
-        <section class="decision-band">
-          <article>
+        <section class="decision-grid">
+          <article class="decision-panel main-readout">
             <span>Lectura ejecutiva</span>
             <p id="executiveReadout">Cargando lectura...</p>
           </article>
-          <article>
-            <span>Siguiente accion</span>
+          <article class="decision-panel">
+            <span>Accion prioritaria</span>
             <p id="nextAction">Cargando accion...</p>
+          </article>
+          <article class="decision-panel">
+            <span>Riesgo principal</span>
+            <p id="riskReadout">Cargando riesgo...</p>
           </article>
         </section>
 
-        <section class="grid two">
-          <article class="panel wide">
+        <section class="section-grid">
+          <article class="panel trend-panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow">Tendencia</p>
-                <h2>Ventas mensuales</h2>
+                <p class="eyebrow">Ventas</p>
+                <h2>Tendencia mensual</h2>
               </div>
               <span id="monthRange" class="pill">-</span>
             </div>
-            <div id="monthlyChart" class="monthly-chart" role="img" aria-label="Grafico mensual de ventas"></div>
+            <div id="monthlyChart" class="monthly-chart" role="img" aria-label="Tendencia mensual de ventas e inscritos"></div>
           </article>
 
-          <article id="riesgos" class="panel">
+          <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow">Control</p>
-                <h2>Riesgos ocultos</h2>
+                <p class="eyebrow">Funnel</p>
+                <h2>Estado comercial</h2>
+              </div>
+            </div>
+            <div id="statusCards" class="status-grid"></div>
+          </article>
+        </section>
+
+        <section id="usuarios" class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Usuarios</p>
+                <h2>Inscritos por tipo</h2>
+              </div>
+            </div>
+            <div id="typeBars" class="bar-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Usuarios</p>
+                <h2>Recurrencia anonima</h2>
+              </div>
+            </div>
+            <div id="userSegmentCards" class="metric-list"></div>
+          </article>
+        </section>
+
+        <section id="productos" class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Productos</p>
+                <h2>Inscritos por curso</h2>
+              </div>
+            </div>
+            <div id="courseBars" class="bar-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Productos</p>
+                <h2>Lineas de oferta</h2>
+              </div>
+            </div>
+            <div id="productLineBars" class="bar-list compact"></div>
+          </article>
+        </section>
+
+        <section id="pagos" class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Medios de pago</p>
+                <h2>Canales que cobran</h2>
+              </div>
+            </div>
+            <div id="channelBars" class="bar-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Medios de pago</p>
+                <h2>Condicion comercial</h2>
+              </div>
+            </div>
+            <div id="paymentTypeBars" class="bar-list compact"></div>
+          </article>
+        </section>
+
+        <section id="riesgos" class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Riesgos</p>
+                <h2>Control de datos y cobranza</h2>
               </div>
             </div>
             <div id="riskList" class="risk-list"></div>
           </article>
-        </section>
-
-        <section id="programas" class="grid two">
-          <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Producto</p>
-                <h2>Programas que venden</h2>
-              </div>
-            </div>
-            <div id="programBars" class="bar-list"></div>
-          </article>
-
-          <article id="canales" class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Go-to-market</p>
-                <h2>Canales de pago</h2>
-              </div>
-            </div>
-            <div id="channelBars" class="bar-list compact"></div>
-          </article>
-        </section>
-
-        <section class="grid two">
-          <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Mix</p>
-                <h2>Tipo de oferta</h2>
-              </div>
-            </div>
-            <div id="typeBars" class="bar-list compact"></div>
-          </article>
 
           <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow">Operacion</p>
-                <h2>Estados de pago</h2>
+                <p class="eyebrow">Riesgos</p>
+                <h2>Pendientes por curso</h2>
               </div>
             </div>
-            <div id="statusDonut" class="status-grid"></div>
+            <div id="pendingCourseBars" class="bar-list compact"></div>
           </article>
         </section>
 
@@ -195,9 +275,11 @@
               <thead>
                 <tr>
                   <th>Mes</th>
-                  <th>Programa</th>
+                  <th>Linea</th>
+                  <th>Curso</th>
                   <th>Tipo</th>
-                  <th>Canal</th>
+                  <th>Usuario</th>
+                  <th>Medio</th>
                   <th>Estado</th>
                   <th>Moneda</th>
                   <th class="num">Inversion</th>
@@ -213,4 +295,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-

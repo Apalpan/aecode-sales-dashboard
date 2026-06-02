@@ -1,8 +1,8 @@
-# PRD - AECODE Sales Dashboard
+# PRD - AECODE Revenue & Enrollment OS
 
 ## Problema
 
-La base de ventas contiene datos comerciales utiles, pero en formato operativo. Alejandro necesita una vista rapida para decidir sobre ingresos, programas, canales, pendientes y calidad de registro.
+La base de ventas contiene datos comerciales utiles, pero en formato operativo. Alejandro necesita una vista rapida para decidir sobre ingresos, inscritos, cursos, canales, pendientes y calidad de registro.
 
 ## Usuario
 
@@ -10,16 +10,18 @@ CEO / equipo comercial-operativo de AECODE.
 
 ## Promesa
 
-Ver en menos de 5 segundos el estado comercial real: cobrado, pendiente, programas que traccionan, canales que convierten y riesgos de cobranza/registro.
+Ver en menos de 5 segundos el estado comercial real: cobrado, pendiente, usuarios anonimos activos, cursos que traccionan, medios de pago y riesgos de cobranza/registro.
 
-## Alcance V1
+## Alcance V2
 
 - KPIs por moneda.
-- Tendencia mensual.
-- Ranking de programas.
-- Distribucion por canal y estado.
+- Filtro por mes.
+- Inscritos por tipo y curso.
+- Usuarios anonimos nuevos/recurrentes.
+- Ranking de productos, cursos y lineas.
+- Distribucion por medio de pago, condicion y estado.
 - Alertas de pendientes, anulados y calidad de datos.
-- Filtros por moneda, programa, canal y estado.
+- Filtros por mes, moneda, linea, curso, tipo, medio de pago, condicion y estado.
 
 ## Fuera de alcance
 
@@ -27,9 +29,8 @@ Ver en menos de 5 segundos el estado comercial real: cobrado, pendiente, program
 - Autenticacion.
 - Edicion de datos.
 - Automatizacion de cobranza.
-- Conversion automatica FX.
+- Conversion automatica FX oficial.
 
 ## Metrica principal
 
-Ventas pagadas por programa y moneda.
-
+Ventas cobradas e inscritos activos por curso.
