@@ -3,51 +3,60 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AECODE Revenue & Enrollment OS</title>
+    <title>AECODE Commercial Command Center</title>
     <meta
       name="description"
-      content="Dashboard avanzado AECODE para ventas, usuarios, productos, medios de pago y riesgos."
+      content="Dashboard ejecutivo AECODE para ventas, usuarios, productos, medios de pago, riesgos y limpieza operativa del Sheet."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="Navegacion principal">
-        <div class="brand">
-          <div class="brand-mark">A</div>
-          <div>
+        <a class="brand" href="#resumen" aria-label="AECODE dashboard">
+          <img class="brand-logo" src="public/aecode-logo.svg" alt="AECODE" />
+          <span>
             <strong>AECODE</strong>
-            <span>Revenue OS</span>
-          </div>
-        </div>
+            <small>Commercial OS</small>
+          </span>
+        </a>
 
         <nav>
-          <a href="#ventas" class="active">Ventas</a>
+          <a href="#resumen" class="active">Resumen</a>
+          <a href="#ventas">Ventas</a>
           <a href="#usuarios">Usuarios</a>
           <a href="#productos">Productos</a>
           <a href="#pagos">Pagos</a>
           <a href="#riesgos">Riesgos</a>
+          <a href="#fixes">Sheet Fixes</a>
+          <a href="#tabla">Tabla</a>
         </nav>
 
         <div class="source-box">
-          <span>Fuente sanitizada</span>
+          <span>Fuente publica sanitizada</span>
           <strong>BBDD Ventas General</strong>
           <small id="sourceMeta">Cargando datos...</small>
+          <small id="privacyMeta">Sin PII publicada</small>
         </div>
       </aside>
 
-      <main>
-        <header class="hero">
-          <div>
-            <p class="eyebrow">AECODE Commercial Intelligence</p>
-            <h1>Revenue & Enrollment OS</h1>
+      <main class="dashboard">
+        <header id="resumen" class="command-header">
+          <div class="header-copy">
+            <p class="eyebrow">AECODE Revenue & Enrollment OS</p>
+            <h1>Commercial Command Center</h1>
             <p class="subtitle">
-              Ventas, inscritos, cursos, medios de pago y riesgos operativos desde una sola vista ejecutiva.
+              Ventas, cobranza, usuarios, productos, pagos y limpieza operativa del Sheet.
             </p>
+            <div class="signal-row" aria-label="Senales del sistema">
+              <span>Usuarios anonimizados</span>
+              <span>JSON publico agregable</span>
+              <span>Vista sin nombres ni contactos</span>
+            </div>
           </div>
           <div class="toolbar">
-            <button id="resetFilters" type="button" title="Limpiar filtros">Limpiar</button>
-            <button id="exportView" type="button" title="Exportar vista actual">Exportar</button>
+            <button id="resetFilters" type="button">Limpiar filtros</button>
+            <button id="exportView" type="button" class="primary-action">Exportar vista</button>
           </div>
         </header>
 
@@ -64,10 +73,11 @@
               <option value="ALL">Todas</option>
               <option value="PEN">PEN</option>
               <option value="USD">USD</option>
+              <option value="SIN_MONEDA">Sin moneda</option>
             </select>
           </label>
           <label>
-            Linea
+            Linea de producto
             <select id="productLineFilter">
               <option value="ALL">Todas</option>
             </select>
@@ -91,7 +101,7 @@
             </select>
           </label>
           <label>
-            Condicion
+            Condicion comercial
             <select id="paymentTypeFilter">
               <option value="ALL">Todas</option>
             </select>
@@ -104,35 +114,47 @@
               <option value="PENDIENTE">Pendiente</option>
               <option value="ANULADO">Anulado</option>
               <option value="RETIRADO">Retirado</option>
+              <option value="SIN_ESTADO">Sin estado</option>
+            </select>
+          </label>
+          <label>
+            Riesgo
+            <select id="riskFilter">
+              <option value="ALL">Todos</option>
             </select>
           </label>
         </section>
 
-        <section id="ventas" class="scoreboard" aria-label="Resumen ejecutivo">
-          <article class="score-card primary">
+        <section class="scoreboard" aria-label="Resumen ejecutivo">
+          <article class="score-card primary" title="Ventas marcadas como pagadas, agrupadas por moneda.">
             <span>Ventas cobradas</span>
             <strong id="paidRevenue">-</strong>
             <small id="paidRevenueDetail">-</small>
           </article>
-          <article class="score-card">
+          <article class="score-card warning" title="Monto pendiente por cobrar en la vista filtrada.">
+            <span>Pendiente por cobrar</span>
+            <strong id="pendingRevenue">-</strong>
+            <small id="pendingTransactions">-</small>
+          </article>
+          <article class="score-card" title="Inscripciones con estado pagado o pendiente.">
             <span>Inscritos activos</span>
             <strong id="activeEnrollments">-</strong>
             <small id="activeEnrollmentDetail">-</small>
           </article>
-          <article class="score-card">
+          <article class="score-card" title="Usuarios anonimos activos, calculados con hash irreversible.">
             <span>Usuarios anonimos</span>
             <strong id="activeUsers">-</strong>
             <small id="userDetail">-</small>
           </article>
-          <article class="score-card">
+          <article class="score-card" title="Cursos con registros comerciales activos.">
             <span>Cursos activos</span>
             <strong id="activeCourses">-</strong>
             <small id="courseDetail">-</small>
           </article>
-          <article class="score-card warning">
-            <span>Pendiente por cobrar</span>
-            <strong id="pendingRevenue">-</strong>
-            <small id="pendingTransactions">-</small>
+          <article class="score-card success" title="Pagos cobrados sobre pagos cobrados mas pendientes.">
+            <span>Tasa de cobranza</span>
+            <strong id="collectionRate">-</strong>
+            <small id="collectionDetail">-</small>
           </article>
         </section>
 
@@ -142,7 +164,7 @@
             <p id="executiveReadout">Cargando lectura...</p>
           </article>
           <article class="decision-panel">
-            <span>Accion prioritaria</span>
+            <span>Accion recomendada</span>
             <p id="nextAction">Cargando accion...</p>
           </article>
           <article class="decision-panel">
@@ -151,7 +173,39 @@
           </article>
         </section>
 
-        <section class="section-grid">
+        <section class="quality-command" aria-label="Calidad de datos y acciones">
+          <article class="panel quality-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Data Quality</p>
+                <h2>Sheet Health Score</h2>
+              </div>
+              <span id="qualityMeta" class="pill">-</span>
+            </div>
+            <div class="quality-body">
+              <div class="quality-ring" aria-label="Score de calidad">
+                <strong id="qualityScore">-</strong>
+                <span>score</span>
+              </div>
+              <div>
+                <p id="qualityBrief" class="quality-brief">Cargando calidad...</p>
+                <div id="qualityIssueList" class="chip-list"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel action-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Action Queue</p>
+                <h2>Prioridades accionables</h2>
+              </div>
+            </div>
+            <div id="actionQueue" class="action-list"></div>
+          </article>
+        </section>
+
+        <section id="ventas" class="section-grid">
           <article class="panel trend-panel">
             <div class="panel-head">
               <div>
@@ -166,11 +220,34 @@
           <article class="panel">
             <div class="panel-head">
               <div>
-                <p class="eyebrow">Funnel</p>
-                <h2>Estado comercial</h2>
+                <p class="eyebrow">Ventas</p>
+                <h2>Moneda y ticket promedio</h2>
               </div>
             </div>
-            <div id="statusCards" class="status-grid"></div>
+            <div id="currencyCards" class="metric-list"></div>
+            <div id="avgTicketCards" class="metric-list compact-metrics"></div>
+          </article>
+        </section>
+
+        <section class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Ventas</p>
+                <h2>Ventas por curso</h2>
+              </div>
+            </div>
+            <div id="courseRevenueBars" class="bar-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Cobranza</p>
+                <h2>Pendiente por curso</h2>
+              </div>
+            </div>
+            <div id="pendingCourseBars" class="bar-list compact"></div>
           </article>
         </section>
 
@@ -189,10 +266,11 @@
             <div class="panel-head">
               <div>
                 <p class="eyebrow">Usuarios</p>
-                <h2>Recurrencia anonima</h2>
+                <h2>Nuevos vs recurrentes</h2>
               </div>
             </div>
             <div id="userSegmentCards" class="metric-list"></div>
+            <div id="userHealthCards" class="metric-list compact-metrics"></div>
           </article>
         </section>
 
@@ -201,7 +279,7 @@
             <div class="panel-head">
               <div>
                 <p class="eyebrow">Productos</p>
-                <h2>Inscritos por curso</h2>
+                <h2>Cursos con mayor traccion</h2>
               </div>
             </div>
             <div id="courseBars" class="bar-list"></div>
@@ -215,6 +293,28 @@
               </div>
             </div>
             <div id="productLineBars" class="bar-list compact"></div>
+          </article>
+        </section>
+
+        <section class="section-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Producto + Datos</p>
+                <h2>Alta venta, bajo orden de datos</h2>
+              </div>
+            </div>
+            <div id="dataDebtCourses" class="bar-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Funnel</p>
+                <h2>Estado comercial</h2>
+              </div>
+            </div>
+            <div id="statusCards" class="status-grid"></div>
           </article>
         </section>
 
@@ -237,6 +337,7 @@
               </div>
             </div>
             <div id="paymentTypeBars" class="bar-list compact"></div>
+            <div id="paymentRiskCards" class="metric-list compact-metrics"></div>
           </article>
         </section>
 
@@ -255,18 +356,43 @@
             <div class="panel-head">
               <div>
                 <p class="eyebrow">Riesgos</p>
-                <h2>Pendientes por curso</h2>
+                <h2>Cursos con pendientes altos</h2>
               </div>
             </div>
-            <div id="pendingCourseBars" class="bar-list compact"></div>
+            <div id="highPendingCourses" class="bar-list compact"></div>
           </article>
         </section>
 
-        <section class="panel table-panel">
+        <section id="fixes" class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Sheet Fixes</p>
+              <h2>Problemas detectados y puntos a corregir</h2>
+            </div>
+            <span id="fixesMeta" class="pill">-</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Problema</th>
+                  <th>Area</th>
+                  <th>Prioridad</th>
+                  <th class="num">Casos</th>
+                  <th>Filas muestra</th>
+                  <th>Accion</th>
+                </tr>
+              </thead>
+              <tbody id="sheetFixesTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="tabla" class="panel table-panel">
           <div class="panel-head">
             <div>
               <p class="eyebrow">Detalle anonimo</p>
-              <h2>Vista operativa filtrada</h2>
+              <h2>Tabla operativa filtrada</h2>
             </div>
             <span id="visibleRows" class="pill">-</span>
           </div>
@@ -278,11 +404,12 @@
                   <th>Linea</th>
                   <th>Curso</th>
                   <th>Tipo</th>
-                  <th>Usuario</th>
+                  <th>Usuario anonimo</th>
                   <th>Medio</th>
+                  <th>Condicion</th>
                   <th>Estado</th>
                   <th>Moneda</th>
-                  <th class="num">Inversion</th>
+                  <th class="num">Monto</th>
                 </tr>
               </thead>
               <tbody id="recordsTable"></tbody>
